@@ -1,5 +1,5 @@
 import { Model, DataTypes, ModelAttributes, InitOptions, SyncOptions } from "sequelize";
-import { database } from "../database/index"
+import { database } from "../database/index";
 
 export interface iQuestao {
     titulo: string;
@@ -13,13 +13,13 @@ export interface iQuestao {
     dataValues: Object;
 }
 
-export class Questao extends Model { }
+export default class Questao extends Model { }
 
 export const schemaAttributes: ModelAttributes = {
     id: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false
+        primaryKey: true,
+        autoIncrement: true
     },
     titulo: {
         type: DataTypes.STRING,
@@ -40,6 +40,15 @@ const syncOptions: SyncOptions = {
     force: true
 }
 
+// relação 1:N
+
+import Alternativa from "./Alternativa";
+
+
 
 Questao.init(schemaAttributes, initOptions)
+
+Questao.hasMany(Alternativa)
+
+
 Questao.sync(syncOptions);

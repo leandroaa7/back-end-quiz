@@ -1,10 +1,6 @@
 import { Model, ModelAttributes, DataTypes } from "sequelize";
 import { database } from "../database/index";
-import Questao from './Questao';
-
 export default class Alternativa extends Model {
-
-
 
     public titulo: string;
     public peso: number;
@@ -16,11 +12,11 @@ export default class Alternativa extends Model {
 }
 
 
-export const alternativaSchema: ModelAttributes = {
+export const alternativaAttributes: ModelAttributes = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
     },
     titulo: {
         type: DataTypes.STRING,
@@ -32,10 +28,7 @@ export const alternativaSchema: ModelAttributes = {
     }
 }
 
-// relação 1:N
-Alternativa.hasMany(Questao);
-
-Alternativa.init(alternativaSchema, {
+Alternativa.init(alternativaAttributes, {
     tableName: "alternativa",
     sequelize: database
 });
