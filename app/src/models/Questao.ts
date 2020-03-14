@@ -16,7 +16,7 @@ export interface iQuestao {
 
 export default class Questao extends Model { }
 
-export const schemaAttributes: ModelAttributes = {
+export const modelAttributes: ModelAttributes = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -42,7 +42,7 @@ const syncOptions: SyncOptions = {
 }
 
 
-Questao.init(schemaAttributes, initOptions)
+Questao.init(modelAttributes, initOptions)
 
 // relação 1:N
 Questao.hasMany(Alternativa)

@@ -1,5 +1,5 @@
 import { QueryInterface } from "sequelize";
-import { schemaAttributes } from '../../models/Questionario'
+import { modelAttributes } from '../../models/Questionario'
 
 module.exports = {
   up: (queryInterface: QueryInterface) => {
@@ -10,7 +10,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-   return queryInterface.createTable('questionario', schemaAttributes);
+   return queryInterface.createTable('questionario', modelAttributes);
   },
 
   down: (queryInterface: QueryInterface) => {

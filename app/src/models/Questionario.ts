@@ -1,6 +1,7 @@
 import { Model, DataTypes, ModelAttributes, InitOptions, SyncOptions } from "sequelize";
 import { database } from "../database/index";
 import Questao from './Questao';
+import Resposta from './Resposta';
 
 export interface iQuestionario {
 
@@ -12,7 +13,7 @@ export interface iQuestionario {
 }
 
 export default class Questionario extends Model { }
-export const schemaAttributes: ModelAttributes = {
+export const modelAttributes: ModelAttributes = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -29,9 +30,10 @@ const syncOptions: SyncOptions = {
     force: true
 }
 
-Questionario.init(schemaAttributes, initOptions);
+Questionario.init(modelAttributes, initOptions);
 
 Questionario.hasMany(Questao);
+Questionario.hasMany(Resposta)
 
 Questionario.sync(syncOptions);
 

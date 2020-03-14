@@ -1,5 +1,5 @@
-import { QueryInterface } from "sequelize";
-import { modelAttributes } from '../../models/Questao'
+import { QueryInterface } from 'sequelize';
+import { modelAttributes } from "../../models/Resposta";
 
 module.exports = {
   up: (queryInterface: QueryInterface) => {
@@ -10,7 +10,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-   return queryInterface.createTable('questao', modelAttributes);
+    return queryInterface.createTable("resposta", modelAttributes);
   },
 
   down: (queryInterface: QueryInterface) => {
@@ -21,6 +21,6 @@ module.exports = {
       Example:
       return queryInterface.dropTable('users');
     */
-   return queryInterface.dropTable('questao');
+    return queryInterface.dropTable("resposta");
   }
 };
