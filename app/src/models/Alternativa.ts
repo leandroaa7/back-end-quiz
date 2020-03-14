@@ -1,5 +1,6 @@
 import { Model, ModelAttributes, DataTypes } from "sequelize";
 import { database } from "../database/index";
+import Questao from './Questao';
 
 export default class Alternativa extends Model {
 
@@ -30,6 +31,9 @@ export const alternativaSchema: ModelAttributes = {
         allowNull: false
     }
 }
+
+// relação 1:N
+Alternativa.hasMany(Questao);
 
 Alternativa.init(alternativaSchema, {
     tableName: "alternativa",
