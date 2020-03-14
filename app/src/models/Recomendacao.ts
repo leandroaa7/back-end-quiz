@@ -3,8 +3,9 @@ import { database } from "../database/index";
 
 export interface iRecomendacao {
     titulo: string;
-    media_resposta: number ;
-    categoria?: string;
+    media_resposta: number;
+    menor_intervalo: number;
+    maior_intervalo: number;
 
     //sequelize Options
     id: number;
@@ -28,7 +29,15 @@ export const modelAttributes: ModelAttributes = {
     media_resposta: {
         type: DataTypes.FLOAT,
         allowNull: false
-    }
+    },
+    menor_intervalo: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    maior_intervalo: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
 }
 
 const initOptions: InitOptions = {
