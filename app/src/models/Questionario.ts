@@ -1,11 +1,8 @@
 import { Model, DataTypes, ModelAttributes, InitOptions, SyncOptions } from "sequelize";
 import { database } from "../database/index";
-import Alternativa from "./Alternativa";
+import Questao from './Questao';
 
-export interface iQuestao {
-    titulo: string;
-    eAlternativa: boolean;
-    peso?: number;
+export interface iQuestionario {
 
     //sequelize Options
     id: number;
@@ -14,21 +11,12 @@ export interface iQuestao {
     dataValues: Object;
 }
 
-export default class Questao extends Model { }
-
+export default class Questionario extends Model { }
 export const schemaAttributes: ModelAttributes = {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    titulo: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    eAlternativa: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
     }
 }
 
@@ -41,10 +29,10 @@ const syncOptions: SyncOptions = {
     force: true
 }
 
+Questionario.init(schemaAttributes, initOptions);
 
-Questao.init(schemaAttributes, initOptions)
+Questionario.hasMany(Questao);
 
-// relação 1:N
-Questao.hasMany(Alternativa)
+Questionario.sync(syncOptions);
 
-Questao.sync(syncOptions);
+
