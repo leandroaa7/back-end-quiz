@@ -1,14 +1,21 @@
 import { Model, ModelAttributes, DataTypes } from "sequelize";
 import { database } from "../database/index";
+
+export interface iAlternativa {
+
+    titulo: string;
+    peso: number;
+
+    //sequelize Options
+    id?: number;
+    created_at?: Date;
+    updated_at?: Date;
+    dataValues?: Object;
+}
+
 export default class Alternativa extends Model {
-
-    public titulo: string;
-    public peso: number;
-    public id: number;
-    public readonly created_at: Date;
-    public readonly updated_at: Date;
-    public dataValues: Object;
-
+    // atributo do sequelize, declaro para funcionar nos testes
+    public dataValues: iAlternativa;
 }
 
 
