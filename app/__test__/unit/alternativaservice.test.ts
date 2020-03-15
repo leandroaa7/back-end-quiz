@@ -8,8 +8,17 @@ describe("Alternativa service", () => {
         const alternativaService = new AlternativaService();
         const alternativaCreated = await alternativaService.store(alternativaMock[0]);
 
-        expect(alternativaMock[0].peso).toEqual(alternativaCreated.dataValues.peso);
-        expect(alternativaMock[0].titulo).toEqual(alternativaCreated.dataValues.titulo);
+        expect(alternativaMock[0].peso).toEqual(alternativaCreated.dataValues["peso"]);
+        expect(alternativaMock[0].titulo).toEqual(alternativaCreated.dataValues["titulo"]);
 
+    });
+
+    it("should find an created alternative by id", async () => {
+        const alternativaService = new AlternativaService();
+        const alternativaCreated = await alternativaService.store(alternativaMock[0]);
+        const alternativaId = alternativaCreated["id"];
+        const alternativaFindedById = await alternativaService.store(alternativaId);
+
+        expect(alternativaCreated["id"]).toBe(alternativaFindedById["id"]);
     })
 })
