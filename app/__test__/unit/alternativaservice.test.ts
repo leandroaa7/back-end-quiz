@@ -40,8 +40,20 @@ describe("Alternativa service", () => {
         expect(alternativaCreated["id"]).toBe(alternativaDeleted["id"]);
         expect(alternativaCreated["peso"]).toBe(alternativaDeleted["peso"]);
         expect(alternativaCreated["titulo"]).toBe(alternativaDeleted["titulo"]);
+    });
 
+    it("should update an alternative by id", async () => {  
+        const alternativaService = new AlternativaService();
+        const alternativaCreated = await alternativaService.store(alternativaMock[0]);
+        //console.log(alternativaCreated);
+        const alternativaId = alternativaCreated.id;
+        const alternativaUpdated = await alternativaService.update(alternativaId,alternativaMock[1]);
+        console.log(alternativaUpdated)
+        expect(alternativaCreated["id"]).toBe(alternativaUpdated["id"]);
+        expect(alternativaUpdated["peso"]).toBe(alternativaMock[1]["peso"]);
+        expect(alternativaUpdated["titulo"]).toBe(alternativaMock[1]["titulo"]);
 
-        expect(1).toBe(1);
     })
+
+
 })

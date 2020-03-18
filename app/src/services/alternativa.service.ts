@@ -1,5 +1,5 @@
 import Alternativa, { iAlternativa } from "../models/Alternativa";
-import { DestroyOptions } from "sequelize";
+import { DestroyOptions, UpdateOptions } from "sequelize";
 
 class AlternativaServiceError extends Error {
     constructor(name: string, message: string, stack?: Object) {
@@ -44,6 +44,28 @@ export default class AlternativaService {
             }
         } else {
             return Promise.reject(new AlternativaServiceError("Destroy Error", "alternativa not found"));
+        }
+    };
+
+    public update = async (idAlternativa: number, alternativaToBeUpdated: iAlternativa): Promise<Alternativa> => {
+        let alternativaFinded: Alternativa;
+        let updateOptions: UpdateOptions;
+        let alternativaIsUpdated: Object | any;
+
+        //buscar alternativa e verificar se existe
+        console.log(alternativaToBeUpdated);
+        alternativaFinded = await this.findById(idAlternativa);
+        if (alternativaFinded) {
+            updateOptions = { where: { id: idAlternativa } };
+            alternativaIsUpdated = await Alternativa.update(alternativaToBeUpdated, updateOptions);
+            if (alternativaIsUpdated[0] == 1) {
+                await alternativaFinded.reload();
+                return Promise.resolve(alternativaFinded);
+            } else {
+                return Promise.reject(new AlternativaServiceError("Update Error", "Alternativa not updated", { err: alternativaIsUpdated }))
+            }
+        } else {
+            return Promise.reject(new AlternativaServiceError("Update Error", "Alternativa not found"));
         }
     }
 }
