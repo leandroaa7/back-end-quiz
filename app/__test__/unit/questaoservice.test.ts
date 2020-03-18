@@ -8,7 +8,7 @@ describe("Questao Service", () => {
         await truncate();
     })
 
-    
+
     it("should create a question", async () => {
         const questaoService = new QuestaoService();
         //criar uma questão sem o atributo de alternativas
@@ -43,7 +43,26 @@ describe("Questao Service", () => {
         expect(questaoFinded["peso"]).toBe(questaoCreated["peso"]);
         expect(questaoFinded["titulo"]).toBe(questaoCreated["titulo"])
         expect(questaoFinded["e_alternativa"]).toBe(questaoCreated["e_alternativa"])
-                
+    });
+
+    it("shoud destroy a question by id", async () => {
+        const questaoService = new QuestaoService();
+        //criar uma questão sem o atributo de alternativas
+        const questaoNew = {
+            titulo: questaoMock[0]["titulo"],
+            e_alternativa: questaoMock[0]["e_alternativa"],
+            peso: questaoMock[0]["peso"]
+        };
+
+        const questaoCreated = await questaoService.store(questaoNew);
+        const idQuestao = questaoCreated["id"];
+        const questaoDestroyed = await questaoService.destroy(idQuestao);
+
+
+        expect(questaoDestroyed["id"]).toBe(questaoCreated["id"]);
+        expect(questaoDestroyed["peso"]).toBe(questaoCreated["peso"]);
+        expect(questaoDestroyed["titulo"]).toBe(questaoCreated["titulo"])
+        expect(questaoDestroyed["e_alternativa"]).toBe(questaoCreated["e_alternativa"])
     })
 
 
