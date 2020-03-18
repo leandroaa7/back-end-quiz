@@ -2,7 +2,8 @@ module.exports = {
     "env": {
         "browser": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest/globals": true
     },
     "extends": [
         "eslint:recommended",
@@ -23,9 +24,6 @@ module.exports = {
         "@typescript-eslint",
         "jest"
     ],
-    "env": {
-        "jest/globals": true
-    },
     "rules": {
     }
 };

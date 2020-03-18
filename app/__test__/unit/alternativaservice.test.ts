@@ -64,16 +64,10 @@ describe("Alternativa service", () => {
         expect(alternativaIndex[0]["titulo"]).toBe(alternativaCreated1["titulo"]);
         expect(alternativaIndex[0]["peso"]).toBe(alternativaCreated1["peso"]);
 
-
         expect(alternativaIndex[1]["id"]).toBe(alternativaCreated2["id"]);
         expect(alternativaIndex[1]["titulo"]).toBe(alternativaCreated2["titulo"]);
         expect(alternativaIndex[1]["peso"]).toBe(alternativaCreated2["peso"]);
 
-
-
-
-        
-        expect(1).toBe(1);
     })
 
 

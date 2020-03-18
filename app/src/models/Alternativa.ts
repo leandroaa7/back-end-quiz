@@ -1,5 +1,6 @@
 import { Model, ModelAttributes, DataTypes } from "sequelize";
 import { database } from "../database/index";
+import Questao from "./Questao";
 
 export interface iAlternativa {
 
@@ -22,7 +23,8 @@ export default class Alternativa extends Model implements iAlternativa {
     public created_at?: Date;
     public updated_at?: Date;
 
-    // atributo do sequelize, declaro para funcionar nos testes
+    // atributo do sequelize, declaro para funcionar nos testes porem 
+    //esta declaração diz que dataValues pode possuir dataValues. MELHORAR
     public dataValues: iAlternativa;
 }
 
@@ -47,5 +49,7 @@ Alternativa.init(alternativaAttributes, {
     tableName: "alternativa",
     sequelize: database
 });
+
+Alternativa.belongsTo(Questao);
 
 Alternativa.sync({ force: true })

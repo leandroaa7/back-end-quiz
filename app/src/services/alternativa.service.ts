@@ -21,9 +21,13 @@ export default class AlternativaService {
                 return newAlternativa;
             })
             .catch(err => {
-                return err;
+                return Promise.reject(new AlternativaServiceError("Store Error", "Alternativa not created", { err: err }))
             })
     };
+
+    public storeMany = async (alternativas: iAlternativa[])=>{
+        return Alternativa.bulkCreate(alternativas);
+    }
 
     public findById = async (idAlternativa: number): Promise<Alternativa> => {
         return Alternativa.findByPk<Alternativa>(idAlternativa);
@@ -57,7 +61,6 @@ export default class AlternativaService {
         let alternativaIsUpdated: Object | any;
 
         //buscar alternativa e verificar se existe
-        console.log(alternativaToBeUpdated);
         alternativaFinded = await this.findById(idAlternativa);
         if (alternativaFinded) {
             updateOptions = { where: { id: idAlternativa } };
