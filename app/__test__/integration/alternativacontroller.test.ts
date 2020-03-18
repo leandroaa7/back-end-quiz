@@ -39,5 +39,68 @@ describe("Alternativa controller", () => {
 
     });
 
+    it("should delete an alternative by id using HTTP request", async () => {
+
+        const responseCreate = await request(app)
+            .post('/alternativa')
+            .send(alternativaMock[0]);
+        const alternativaCreated: Alternativa = responseCreate.body;
+
+        const urlResponse: string = '/alternativa/' + alternativaCreated.id;
+        const responseDestroy = await request(app)
+            .delete(urlResponse);
+
+
+        expect(alternativaCreated["id"]).toBe(responseDestroy.body["id"]);
+        expect(alternativaCreated["peso"]).toBe(responseDestroy.body["peso"]);
+        expect(alternativaCreated["titulo"]).toBe(responseDestroy.body["titulo"]);
+    });
+
+    it("should update an alternative by id using HTTP request", async () => {
+        const responseCreate = await request(app)
+            .post('/alternativa')
+            .send(alternativaMock[0]);
+        const alternativaCreated: Alternativa = responseCreate.body;
+
+        const urlResponse: string = '/alternativa/' + alternativaCreated.id;
+        const responseUpdate = await request(app)
+            .put(urlResponse)
+            .send(alternativaMock[1]);
+        const alternativaUpdated: Alternativa = responseUpdate.body;
+
+        expect(alternativaCreated["id"]).toBe(alternativaUpdated["id"]);
+        expect(alternativaUpdated["peso"]).toBe(alternativaMock[1]["peso"]);
+        expect(alternativaUpdated["titulo"]).toBe(alternativaMock[1]["titulo"]);
+
+    });
+
+    it("should list all alternatives using HTTP request", async () => {
+
+        const responseCreate = await request(app)
+            .post('/alternativa')
+            .send(alternativaMock[0]);
+        const alternativaCreated1: Alternativa = responseCreate.body;
+
+        const responseCreate2 = await request(app)
+            .post('/alternativa')
+            .send(alternativaMock[0]);
+        const alternativaCreated2: Alternativa = responseCreate2.body;
+
+        const responseIndex = await request(app)
+            .get('/alternativa')
+        const alternativaIndex: Alternativa[] = responseIndex.body;
+
+
+
+        expect(alternativaIndex[0]["id"]).toBe(alternativaCreated1["id"]);
+        expect(alternativaIndex[0]["titulo"]).toBe(alternativaCreated1["titulo"]);
+        expect(alternativaIndex[0]["peso"]).toBe(alternativaCreated1["peso"]);
+
+        expect(alternativaIndex[1]["id"]).toBe(alternativaCreated2["id"]);
+        expect(alternativaIndex[1]["titulo"]).toBe(alternativaCreated2["titulo"]);
+        expect(alternativaIndex[1]["peso"]).toBe(alternativaCreated2["peso"]);
+
+    })
+
 
 })
