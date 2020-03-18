@@ -1,4 +1,7 @@
 import Questao, { iQuestao } from "../models/Questao";
+/* import { iAlternativa } from "../models/Alternativa";
+import AlternativaService from "../services/alternativa.service";
+ */
 import { DestroyOptions, UpdateOptions } from "sequelize";
 
 class QuestaoServiceError extends Error {
@@ -34,7 +37,7 @@ export default class QuestaoService {
                 return Promise.reject(new QuestaoServiceError("Destroy Error", "Questao not destroyed"));
             }
         } else {
-            return Promise.reject(new QuestaoServiceError("Destroy Error", "User not found"));
+            return Promise.reject(new QuestaoServiceError("Destroy Error", "Question not found"));
         }
     }
 
@@ -59,6 +62,23 @@ export default class QuestaoService {
         }
     }
 
+/*     public storeAlternative = async (idQuestao: number, alternativeNew: iAlternativa) => {
+        let questaoFinded: Questao;
+        let alternativaService = new AlternativaService();
+        let alternativaCreated: iAlternativa;
+
+        questaoFinded = await this.findById(idQuestao);
+
+        if (questaoFinded) {
+            alternativaCreated = await alternativaService.store(alternativeNew);
+            
+
+        } else {
+            return Promise.reject(new QuestaoServiceError("Destroy Error", "Question not found"));
+        }
+    }
+
+    public storeWithAlternatives = async () => { } */
 
 }
 

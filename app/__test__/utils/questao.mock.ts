@@ -3,12 +3,12 @@ export default [{
     titulo: "Quantos funcionários existem na sua empresa?",
     e_alternativa: true,
     peso: 1,
-    alternativaList: alternativaMock
+    alternativa_list: alternativaMock
 },
 {
     titulo: "Quantos funcionários querer entrar na sua empresa?",
     e_alternativa: true,
     peso: 1,
-    alternativaList: alternativaMock[0]
+    alternativa_list: alternativaMock[0]
 }
 ]

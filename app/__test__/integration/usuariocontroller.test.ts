@@ -3,6 +3,7 @@ import app from "../../src/app";
 import userMock from '../utils/user.mock';
 import truncate from '../utils/truncate';
 import { UsuarioInterface } from "../../src/models/Usuario";
+
 describe("Usuario controller", () => {
 
     beforeEach(async () => {

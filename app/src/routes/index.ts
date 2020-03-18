@@ -1,5 +1,8 @@
 import { Router } from "express";
+
 import usuario from "./users";
+import alternativa from './alternatives';
+
 const router = Router();
 
 router.get('/', (req, res) => {
@@ -7,5 +10,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/usuario', usuario)
+router.use('/alternativa', alternativa);
 
 export default router;
