@@ -11,6 +11,10 @@ class AlternativaServiceError extends Error {
 
 export default class AlternativaService {
 
+    public index = async (): Promise<Alternativa[]> => {
+        return Alternativa.findAll<Alternativa>();
+    };
+
     public store = async (alternativa: iAlternativa): Promise<Alternativa> => {
         return Alternativa.create(alternativa)
             .then(newAlternativa => {
@@ -19,7 +23,7 @@ export default class AlternativaService {
             .catch(err => {
                 return err;
             })
-    }
+    };
 
     public findById = async (idAlternativa: number): Promise<Alternativa> => {
         return Alternativa.findByPk<Alternativa>(idAlternativa);

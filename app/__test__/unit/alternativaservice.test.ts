@@ -42,17 +42,38 @@ describe("Alternativa service", () => {
         expect(alternativaCreated["titulo"]).toBe(alternativaDeleted["titulo"]);
     });
 
-    it("should update an alternative by id", async () => {  
+    it("should update an alternative by id", async () => {
         const alternativaService = new AlternativaService();
         const alternativaCreated = await alternativaService.store(alternativaMock[0]);
-        //console.log(alternativaCreated);
         const alternativaId = alternativaCreated.id;
-        const alternativaUpdated = await alternativaService.update(alternativaId,alternativaMock[1]);
-        console.log(alternativaUpdated)
+        const alternativaUpdated = await alternativaService.update(alternativaId, alternativaMock[1]);
+
         expect(alternativaCreated["id"]).toBe(alternativaUpdated["id"]);
         expect(alternativaUpdated["peso"]).toBe(alternativaMock[1]["peso"]);
         expect(alternativaUpdated["titulo"]).toBe(alternativaMock[1]["titulo"]);
 
+    });
+
+    it("should list all alternatives", async () => {
+        const alternativaService = new AlternativaService();
+        const alternativaCreated1 = await alternativaService.store(alternativaMock[0]);
+        const alternativaCreated2 = await alternativaService.store(alternativaMock[1]);
+        const alternativaIndex = await alternativaService.index();
+
+        expect(alternativaIndex[0]["id"]).toBe(alternativaCreated1["id"]);
+        expect(alternativaIndex[0]["titulo"]).toBe(alternativaCreated1["titulo"]);
+        expect(alternativaIndex[0]["peso"]).toBe(alternativaCreated1["peso"]);
+
+
+        expect(alternativaIndex[1]["id"]).toBe(alternativaCreated2["id"]);
+        expect(alternativaIndex[1]["titulo"]).toBe(alternativaCreated2["titulo"]);
+        expect(alternativaIndex[1]["peso"]).toBe(alternativaCreated2["peso"]);
+
+
+
+
+        
+        expect(1).toBe(1);
     })
 
 
