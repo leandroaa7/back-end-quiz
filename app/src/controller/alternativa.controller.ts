@@ -1,27 +1,23 @@
 import AlternativaService from "../services/alternativa.service";
 import Alternativa, { iAlternativa } from "../models/Alternativa";
 import { Request, Response } from "express";
+import ResponseController from "./response.controller";
 
 class AlternativaControllerError extends Error {
-    constructor(public name: string, public message: string, public stack?: string) {
+    constructor(name: string, message: string, stack?: Object) {
         super(message);
         this.name = name;
         stack ? this.stack : false;
         //res ? this.res : false;
     }
-
-    public render = (res: Response) => {
-        let body: any = { name: this.name, message: this.message };
-        this.stack ? body["stack"] = this.stack : false;
-        res.status(500).json(body)
-    }
 }
 
-export default class AlternativaController {
+export default class AlternativaController extends ResponseController {
     private alternativaService: AlternativaService;
 
 
     constructor() {
+        super();
         this.alternativaService = new AlternativaService();
     }
 
@@ -29,11 +25,23 @@ export default class AlternativaController {
         let alternativaNew: iAlternativa = req.body;
         await this.alternativaService.store(alternativaNew)
             .then((alternativaCreated: Alternativa) => {
-                res.status(200).json(alternativaCreated);
+                this.renderSuccess(res, alternativaCreated)
             })
             .catch(err => {
-                new AlternativaControllerError("Store Error", "Alternative not created", err).render(res);
+                this.renderError(res,
+                    new AlternativaControllerError("Store Error", "Alternative not created", err))
             });
+    }
 
+    public findById = async (req: Request, res: Response) => {
+        let idAlternativa: string = req.params.id;
+        await this.alternativaService.findById(Number(idAlternativa))
+            .then((alternativa: Alternativa) => {
+                this.renderSuccess(res, alternativa);
+            })
+            .catch((err: Error) => {
+                this.renderError(res,
+                    new AlternativaControllerError("Store Error", "Alternative not finded", err))
+            })
     }
 }
