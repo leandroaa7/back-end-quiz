@@ -1,5 +1,5 @@
 import Questao, { iQuestao } from "../models/Questao";
-import { DestroyOptions } from "sequelize";
+import { DestroyOptions, UpdateOptions } from "sequelize";
 
 class QuestaoServiceError extends Error {
     constructor(name: string, message: string, stack?: object) {
@@ -35,6 +35,27 @@ export default class QuestaoService {
             }
         } else {
             return Promise.reject(new QuestaoServiceError("Destroy Error", "User not found"));
+        }
+    }
+
+    public update = async (idQuestao: number, questaoToBeUpdated: iQuestao): Promise<Questao> => {
+        let questaoFinded: Questao;
+        let updateOptions: UpdateOptions;
+        let questaoIsUpdated: Object | any;
+
+        //buscar Questao e verificar se existe
+        questaoFinded = await this.findById(idQuestao);
+        if (questaoFinded) {
+            updateOptions = { where: { id: idQuestao } };
+            questaoIsUpdated = await Questao.update(questaoToBeUpdated, updateOptions);
+            if (questaoIsUpdated[0] == 1) {
+                await questaoFinded.reload();
+                return Promise.resolve(questaoFinded);
+            } else {
+                return Promise.reject(new QuestaoServiceError("Update Error", "questao not updated", { err: questaoIsUpdated }))
+            }
+        } else {
+            return Promise.reject(new QuestaoServiceError("Update Error", "questao not found"));
         }
     }
 

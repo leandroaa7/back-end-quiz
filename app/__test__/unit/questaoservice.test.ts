@@ -63,6 +63,37 @@ describe("Questao Service", () => {
         expect(questaoDestroyed["peso"]).toBe(questaoCreated["peso"]);
         expect(questaoDestroyed["titulo"]).toBe(questaoCreated["titulo"])
         expect(questaoDestroyed["e_alternativa"]).toBe(questaoCreated["e_alternativa"])
+    });
+
+
+    it("shoud update a question", async ()=>{
+        const questaoService = new QuestaoService();
+        //criar uma questão sem o atributo de alternativas
+        const questaoNew = {
+            titulo: questaoMock[0]["titulo"],
+            e_alternativa: questaoMock[0]["e_alternativa"],
+            peso: questaoMock[0]["peso"]
+        };
+
+        const questaoCreated = await questaoService.store(questaoNew);
+        const idQuestao = questaoCreated["id"];
+        
+        //alterar questão criada
+        const questaoUpdate = {
+            titulo: questaoMock[1]["titulo"],
+            e_alternativa: questaoMock[1]["e_alternativa"],
+            peso: questaoMock[1]["peso"]
+        }
+
+        const questaoUpdated = await questaoService.update(idQuestao,questaoUpdate);
+
+        expect(questaoUpdated["id"]).toBe(questaoCreated["id"]);
+        expect(questaoUpdated["peso"]).toBe(questaoUpdate["peso"]);
+        expect(questaoUpdated["titulo"]).toBe(questaoUpdate["titulo"])
+        expect(questaoUpdated["e_alternativa"]).toBe(questaoUpdate["e_alternativa"])
+
+
+        expect(1).toBe(1);
     })
 
 
