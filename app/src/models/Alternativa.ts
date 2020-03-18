@@ -5,7 +5,6 @@ export interface iAlternativa {
 
     titulo: string;
     peso: number;
-
     //sequelize Options
     id?: number;
     created_at?: Date;
@@ -13,7 +12,16 @@ export interface iAlternativa {
     dataValues?: Object;
 }
 
-export default class Alternativa extends Model {
+export default class Alternativa extends Model implements iAlternativa {
+
+    public titulo: string;
+    public peso: number;
+
+    //sequelize Options
+    public id?: number;
+    public created_at?: Date;
+    public updated_at?: Date;
+
     // atributo do sequelize, declaro para funcionar nos testes
     public dataValues: iAlternativa;
 }

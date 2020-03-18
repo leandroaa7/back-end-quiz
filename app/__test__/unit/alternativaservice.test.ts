@@ -1,8 +1,13 @@
 import AlternativaService from "../../src/services/alternativa.service";
 import alternativaMock from '../utils/alternativa.mock';
 //import Alternativa, { alternativaAttributes } from "../../src/models/Alternativa";
+import truncate from '../utils/truncate';
 
 describe("Alternativa service", () => {
+
+    beforeEach(async () => {
+        await truncate();
+    })
 
     it("should create an alternative", async () => {
         const alternativaService = new AlternativaService();
@@ -15,10 +20,28 @@ describe("Alternativa service", () => {
 
     it("should find an created alternative by id", async () => {
         const alternativaService = new AlternativaService();
-        const alternativaCreated = await alternativaService.store(alternativaMock[0]);
+        const alternativa = alternativaMock[0];
+        const alternativaCreated = await alternativaService.store(alternativa);
         const alternativaId = alternativaCreated["id"];
-        const alternativaFindedById = await alternativaService.store(alternativaId);
+        const alternativaFindedById = await alternativaService.findById(alternativaId);
 
         expect(alternativaCreated["id"]).toBe(alternativaFindedById["id"]);
+        expect(alternativaCreated["peso"]).toBe(alternativaFindedById["peso"]);
+        expect(alternativaCreated["titulo"]).toBe(alternativaFindedById["titulo"]);
+
+    });
+
+    it("should delete an alternative by id", async () => {
+        const alternativaService = new AlternativaService();
+        const alternativaCreated = await alternativaService.store(alternativaMock[0]);
+        const alternativaId = alternativaCreated.id;
+        const alternativaDeleted = await alternativaService.destroy(alternativaId);
+
+        expect(alternativaCreated["id"]).toBe(alternativaDeleted["id"]);
+        expect(alternativaCreated["peso"]).toBe(alternativaDeleted["peso"]);
+        expect(alternativaCreated["titulo"]).toBe(alternativaDeleted["titulo"]);
+
+
+        expect(1).toBe(1);
     })
 })
