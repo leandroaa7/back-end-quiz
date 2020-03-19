@@ -11,6 +11,7 @@ export interface iAlternativa {
     created_at?: Date;
     updated_at?: Date;
     dataValues?: Object;
+    QuestaoId?: number;
 }
 
 export default class Alternativa extends Model implements iAlternativa {
@@ -22,6 +23,7 @@ export default class Alternativa extends Model implements iAlternativa {
     public id?: number;
     public created_at?: Date;
     public updated_at?: Date;
+    public QuestaoId?: number;
 
     // atributo do sequelize, declaro para funcionar nos testes porem 
     //esta declaração diz que dataValues pode possuir dataValues. MELHORAR

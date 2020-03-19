@@ -1,7 +1,10 @@
 import AlternativaService from "../../src/services/alternativa.service";
 import alternativaMock from '../utils/alternativa.mock';
-//import Alternativa, { alternativaAttributes } from "../../src/models/Alternativa";
+import { iAlternativa } from "../../src/models/Alternativa";
 import truncate from '../utils/truncate';
+
+import QuestaoService from "../../src/services/questao.service";
+import questaoMock from '../utils/questao.mock';
 
 describe("Alternativa service", () => {
 
@@ -67,6 +70,38 @@ describe("Alternativa service", () => {
         expect(alternativaIndex[1]["id"]).toBe(alternativaCreated2["id"]);
         expect(alternativaIndex[1]["titulo"]).toBe(alternativaCreated2["titulo"]);
         expect(alternativaIndex[1]["peso"]).toBe(alternativaCreated2["peso"]);
+
+    })
+
+    it("should find alternatives by QuestaoId", async () => {
+        const questaoService = new QuestaoService();
+        const alternativaService = new AlternativaService();
+
+        //create questão
+
+        //create a question withou attribute "alternativas"
+        const questaoNew = {
+            titulo: questaoMock[0]["titulo"],
+            e_alternativa: questaoMock[0]["e_alternativa"],
+            peso: questaoMock[0]["peso"]
+        };
+        const questaoCreated = await questaoService.store(questaoNew);
+
+        // create alternativa
+        let alternativaNew: iAlternativa = alternativaMock[0];
+        alternativaNew.QuestaoId = questaoCreated.id;
+        const alternativaCreated = await alternativaService.store(alternativaNew);
+
+        //findByQuestaoId
+
+        const alternativaListFindedByQuestaoId =
+            await alternativaService.findByQuestaoId(questaoCreated.id);
+
+        expect(alternativaListFindedByQuestaoId[0]["id"]).toBe(alternativaCreated["id"]);
+        expect(alternativaListFindedByQuestaoId[0]["titulo"]).toBe(alternativaCreated["titulo"]);
+        expect(alternativaListFindedByQuestaoId[0]["peso"]).toBe(alternativaCreated["peso"]);
+
+        expect(alternativaListFindedByQuestaoId[0]["QuestaoId"]).toBe(questaoCreated["id"]);
 
     })
 

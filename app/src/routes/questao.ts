@@ -11,7 +11,7 @@ router.put('/:id');
 router.delete('/id');
 
 router.get('/:id', questaoController.findById);
-router.post('/:id/alternativa'); // criar alternativa(s) e vincular com a questao
+//router.post('/:id/alternativa'); // criar alternativa(s) e vincular com a questao
 //router.get('/:id/:idAlternativa') // vincular alternativa(s) com questao
 
 

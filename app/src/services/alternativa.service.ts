@@ -1,5 +1,5 @@
 import Alternativa, { iAlternativa } from "../models/Alternativa";
-import { DestroyOptions, UpdateOptions } from "sequelize";
+import { DestroyOptions, UpdateOptions, FindOptions } from "sequelize";
 
 class AlternativaServiceError extends Error {
     constructor(name: string, message: string, stack?: Object) {
@@ -25,12 +25,21 @@ export default class AlternativaService {
             })
     };
 
-    public storeMany = async (alternativas: iAlternativa[])=>{
+    public storeMany = async (alternativas: iAlternativa[]) => {
         return Alternativa.bulkCreate(alternativas);
     }
 
     public findById = async (idAlternativa: number): Promise<Alternativa> => {
         return Alternativa.findByPk<Alternativa>(idAlternativa);
+    }
+
+    public findByQuestaoId = async (idQuestao: number): Promise<Alternativa[]> => {
+        const findOptions: FindOptions = {
+            where: {
+                QuestaoId: idQuestao
+            }
+        }
+        return Alternativa.findAll<Alternativa>(findOptions);
     }
 
     public destroy = async (idAlternativa: number): Promise<Alternativa> => {

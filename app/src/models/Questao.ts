@@ -12,6 +12,7 @@ export interface iQuestao {
     created_at?: Date;
     updated_at?: Date;
     dataValues?: Object;
+    alternativa_list?: Object;
 }
 
 export default class Questao extends Model implements iQuestao {
@@ -28,7 +29,8 @@ export default class Questao extends Model implements iQuestao {
 
     // atributo do sequelize, declaro para funcionar nos testes porem 
     //esta declaração diz que dataValues pode possuir dataValues. MELHORAR
-    public dataValues?: Object;
+    public dataValues?: Object | any;
+    public alternativa_list?: Object;
 
 }
 
