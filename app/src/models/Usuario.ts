@@ -8,7 +8,7 @@ export class Usuario extends Model {
     public password_hash!: string;
     public readonly created_at!: Date;
     public readonly updated_at!: Date;
-    
+
     public dataValues?: Object;
 
 }
@@ -38,9 +38,10 @@ export const usuarioSchema = {
 }
 
 //representação da tabela no banco
-Usuario.init( usuarioSchema, {
+Usuario.init(usuarioSchema, {
     tableName: "usuario",
-    sequelize: database // this bit is important
+    sequelize: database, // this bit is important
+    underscored: true
 }
 );
 

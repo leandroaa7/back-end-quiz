@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import usuario from "./users";
-import alternativa from './alternative';
+import usuario from "./usuario";
+import alternativa from './alternativa';
 
-import questao from './question';
+import questao from './questao';
 
 const router = Router();
 

@@ -47,7 +47,8 @@ export const alternativaAttributes: ModelAttributes = {
 
 Alternativa.init(alternativaAttributes, {
     tableName: "alternativa",
-    sequelize: database
+    sequelize: database,
+    underscored:true
 });
 
 Alternativa.belongsTo(Questao);

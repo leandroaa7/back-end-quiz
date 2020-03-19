@@ -54,7 +54,8 @@ export const modelAttributes: ModelAttributes = {
 
 const initOptions: InitOptions = {
     sequelize: database,
-    tableName: "questao"
+    tableName: "questao",
+    underscored:true
 }
 
 const syncOptions: SyncOptions = {

@@ -26,7 +26,8 @@ export const modelAttributes: ModelAttributes = {
 
 const initOptions: InitOptions = {
     sequelize: database,
-    modelName: "resposta"
+    modelName: "resposta",
+    underscored:true
 }
 
 Resposta.init(modelAttributes, initOptions);
