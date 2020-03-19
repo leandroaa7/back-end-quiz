@@ -17,6 +17,7 @@ describe("Alternativa controller", () => {
 
         const alternativaCreated: Alternativa = responseCreate.body;
 
+        expect(responseCreate.status).toBe(200);
         expect(alternativaMock[0].peso).toEqual(alternativaCreated["peso"]);
         expect(alternativaMock[0].titulo).toEqual(alternativaCreated["titulo"]);
 
@@ -32,7 +33,7 @@ describe("Alternativa controller", () => {
         const responseGetById = await request(app)
             .get(urlResponse);
 
-
+        expect(responseGetById.status).toBe(200);
         expect(alternativaCreated["id"]).toBe(responseGetById.body["id"]);
         expect(alternativaCreated["peso"]).toBe(responseGetById.body["peso"]);
         expect(alternativaCreated["titulo"]).toBe(responseGetById.body["titulo"]);
@@ -50,7 +51,7 @@ describe("Alternativa controller", () => {
         const responseDestroy = await request(app)
             .delete(urlResponse);
 
-
+        expect(responseDestroy.status).toBe(200);
         expect(alternativaCreated["id"]).toBe(responseDestroy.body["id"]);
         expect(alternativaCreated["peso"]).toBe(responseDestroy.body["peso"]);
         expect(alternativaCreated["titulo"]).toBe(responseDestroy.body["titulo"]);
@@ -68,6 +69,8 @@ describe("Alternativa controller", () => {
             .send(alternativaMock[1]);
         const alternativaUpdated: Alternativa = responseUpdate.body;
 
+
+        expect(responseUpdate.status).toBe(200);
         expect(alternativaCreated["id"]).toBe(alternativaUpdated["id"]);
         expect(alternativaUpdated["peso"]).toBe(alternativaMock[1]["peso"]);
         expect(alternativaUpdated["titulo"]).toBe(alternativaMock[1]["titulo"]);
@@ -90,8 +93,7 @@ describe("Alternativa controller", () => {
             .get('/alternativa')
         const alternativaIndex: Alternativa[] = responseIndex.body;
 
-
-
+        expect(responseIndex.status).toBe(200);
         expect(alternativaIndex[0]["id"]).toBe(alternativaCreated1["id"]);
         expect(alternativaIndex[0]["titulo"]).toBe(alternativaCreated1["titulo"]);
         expect(alternativaIndex[0]["peso"]).toBe(alternativaCreated1["peso"]);

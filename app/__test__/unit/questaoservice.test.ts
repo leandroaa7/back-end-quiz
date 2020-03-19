@@ -92,8 +92,6 @@ describe("Questao Service", () => {
         expect(questaoUpdated["titulo"]).toBe(questaoUpdate["titulo"])
         expect(questaoUpdated["e_alternativa"]).toBe(questaoUpdate["e_alternativa"])
 
-
-        expect(1).toBe(1);
     })
 
 
